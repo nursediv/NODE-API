@@ -1,15 +1,14 @@
-let mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+var express = require('express');
+var router = express.Router();
 
+let productsController = require('../controllers/products');
 
-//define new schema for product
-const product = new Schema({
-    name: String,
-    description: String,
-    price: Number,
-    published: Boolean,
-    category: String
-})
-//using mongoose model function it exprots the product schema object
+console.log("here in router");
+//set routes 
+router.get('/list', productsController.list);
+router.get('/add', productsController.add);
+router.get('/get/:productID', productsController.productByID);
+router.get('/edit/:productID', productsController.update);
+router.get('/delete/:productID', productsController.remove);
 
-module.exports = mongoose.model('Product', product);
+module.exports = router;
