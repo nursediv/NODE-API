@@ -1,12 +1,34 @@
-console.log('Welcome to the Online Warehouse');
+/*
+server.js 
+Name: Divya Patel (301309543)
+Oct 16,2023 
+*/
+const express = require('express');
+const app = express()
+const mongoose = require('mongoose');
+var db = require('./config/db');
+const router = require('./routes/products');
 
-const http = require('http');
-const server = http.createServer((req,res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello Everyone, this is my clothing store\n');
+//connect to mongoDB
+
+
+var message = "Welcome to the WareHouse! Prices more competitve than average retailers";
+
+//declare routes to show on computer
+app.get('/',(req,res)=> {
+    res.send('Hello, welcome to Divs clothing store')
 });
 
-const PORT = 3000;
-server.listen(PORT,() => {
-    console.log(`THIS WORKS.SERVER IS RUNNING ON http://localhost:${PORT}`);
+//app.get('/Products',(req,res)=> {
+   // res.send('PRODUCTS PAGE. Take a look at our most trendy items')
+//});
+
+app.use(router);
+db();
+
+const PORT = process.env.PORT||3000;
+app.listen(PORT,()=> {
+    console.log('NODE API APP IS RUNNING ON PORT 3000');
 });
+
+db();
